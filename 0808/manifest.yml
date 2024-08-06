@@ -1,0 +1,17 @@
+modules:
+  jira:projectPage:
+    - key: 0808-hello-world-project-page
+      resource: main
+      resolver:
+        function: resolver
+      title: "0808"
+  function:
+    - key: resolver
+      handler: index.handler
+resources:
+  - key: main
+    path: static/hello-world/build
+app:
+  runtime:
+    name: nodejs18.x
+  id: ari:cloud:ecosystem::app/2e5b9e33-00e1-4e14-829d-23128b46a48b

@@ -15,3 +15,14 @@ app:
   runtime:
     name: nodejs18.x
   id: ari:cloud:ecosystem::app/2e5b9e33-00e1-4e14-829d-23128b46a48b
+permissions:
+  content:
+    styles:
+      - 'unsafe-inline'
+
+  scopes: []
+
+  external:
+    fetch:
+      backend:
+        - gitlab.com

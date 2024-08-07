@@ -29,8 +29,10 @@ resolver.define('getDetails', async (req) => {
                 reviewers: mr.reviewers ? mr.reviewers.map(r => r.name).join(', ') : 'None',
                 age: formatDuration(ageInMs),
                 devTime: formatDuration(devTime),
+                
                 revTime: formatDuration(revTime),
             };
+            
         });
 
         const openMergeRequests = data.filter(mr => mr.state === 'opened');

@@ -26,10 +26,6 @@ function App() {
           setError(response.error);
         } else {
           setData(response);
-
-          // Set CSS variables
-          document.documentElement.style.setProperty('--dev-time', response.devTime);
-          document.documentElement.style.setProperty('--rev-time', response.revTime);
         }
       })
       .catch((err) => {

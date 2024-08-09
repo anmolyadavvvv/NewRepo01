@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { invoke } from "@forge/bridge";
 import "./App.css";
+import { Tooltip } from '@forge/react';
+
 
 const formatDate = (dateString) => {
   const options = {
@@ -148,7 +150,6 @@ function App() {
             <span className="close" onClick={closePRModal}>
               &times;
             </span>
-            <h1>PR Merge Details</h1>
             <div className="modal-body">
               {prModalContent}
             </div>

@@ -1,9 +1,7 @@
 .timeline-container {
     text-align: center;
     padding: 20px;
-    position: fixed;
-    top: 0;
-    right: 0;
+    position: relative; /* Changed from fixed to relative */
     width: 35vw;
     height: 32vw;
     max-width: 300px;
@@ -18,11 +16,7 @@
     align-items: center;
     justify-content: center;
 }
-.h3{
-    font-style: italic;
-    font-size: 9%;
 
-}
 
 .timeline {
     display: flex;
@@ -37,7 +31,7 @@
 .timeline::before, .timeline::after {
     content: '';
     position: absolute;
-    bottom: 45%;
+    bottom: 49.4%;
     height: 12px;
     width: 50%; /* Cover half width */
     z-index: 1;
@@ -98,35 +92,39 @@
 .timeline-item:nth-child(3)::after {
     display: none;
 }
-
 .modal {
     display: flex;
     align-items: center;
+    
     justify-content: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    position: absolute; /* Changed from fixed to absolute */
+    left: 60;
+    top: -24;
+    width: 102%;
+    height: 110%;
     overflow: hidden; 
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    background-color: white;
+    z-index: 1001; /* Ensure modal is on top of other elements */
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+    margin: 0 auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 40%;
+    border: 0px solid #888;
+    box-shadow: silver;
+    width: 90%; /* Adjust width for responsiveness */
     max-width: 600px;
     height: 70%;
     max-height: 500px;
     position: relative;
-    overflow: auto; 
-    scrollbar-width: none; 
-    -ms-overflow-style: none;  
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
+
+
+
 
 .modal-content::-webkit-scrollbar {
     display: none;
@@ -151,6 +149,16 @@
     max-width: 900px;
     margin: auto;
     padding: 20px;
+    
+}
+.timeline-connector {
+    position: absolute;
+    width: 2px;
+    background: #010810; /* Color matching the blue dots */
+    top: 0;
+    bottom: 0;
+    left: 165px; /* Adjust to align with the blue dots */
+    z-index: 1;
 }
 
 .time-line {
@@ -177,7 +185,7 @@
     content: '';
     position: absolute;
     width: 20px;
-    height: 20px;
+    height: 0px;
     border-radius: 50%;
     background: #007bff;
     left: 165px;
@@ -186,26 +194,49 @@
     z-index: 2;
 }
 
+.time-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
 .time-age {
     border-radius: 6px;
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100px;
     text-align: center;
-    margin-right: 20px;
-    font-size: 16px;
+    margin-right: 25px;
+    font-size: 6px;
+    position: relative; /* Add this for positioning the vertical line */
 }
 
 .time-content {
     border-radius: 6px;
     padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 20vw;
-    width: auto;
-    margin-left: 20px;
-    box-sizing: border-box;
-    flex: 1;
+    width: 100px;
+    text-align: center;
+    margin-right: 25px;
+    font-size: 6px;
+    position: relative; /* Add this for positioning the vertical line */
 }
+
+.time-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 125px; /* Adjust based on your layout */
+    width: 4px; /* Thickness of the vertical line */
+    background: #000; /* Color of the vertical line */
+    z-index: 1; /* Ensure it's between the time-age and time-content */
+}
+
 
 .time-header {
     font-weight: bold;
@@ -231,12 +262,12 @@
 .arrow-1 {
     font-size: 6px;
     left: calc(35% - 21px); 
-    top: calc(54% - 17px); 
+    top: calc(49.6% - 17px); 
 }
 
 .arrow-2 {
     font-size: 6px;
-    left: calc(69% - 21px); 
-    top: calc(54% - 17px); 
+    left: calc(68.5% - 21px); 
+    top: calc(49.6% - 17px); 
 }
 

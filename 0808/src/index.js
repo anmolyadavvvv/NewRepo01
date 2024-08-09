@@ -13,26 +13,22 @@ resolver.define('getDetails', async (req) => {
         const detailedData = data.map(mr => {
             const createdDate = new Date(mr.created_at);
             const now = new Date();
-            const ageInMs = now - createdDate;
 
-            // Calculate dev time (created_at to pr open time)
-            const prOpenDate = new Date(mr.created_at);
-            const devTime = prOpenDate - createdDate;
-
-            // Calculate rev time (pr open time to pr close time)
+           
             const prCloseDate = mr.state === 'merged' ? new Date(mr.merged_at) : now;
-            const revTime = prCloseDate - prOpenDate;
+            const devTime = prCloseDate - createdDate;
+
+            // Rev time
+            const revTime = prCloseDate - createdDate;
 
             return {
                 title: mr.title,
                 assignees: mr.assignees ? mr.assignees.map(a => a.name).join(', ') : 'None',
                 reviewers: mr.reviewers ? mr.reviewers.map(r => r.name).join(', ') : 'None',
-                age: formatDuration(ageInMs),
+                age: formatDuration(now - createdDate),
                 devTime: formatDuration(devTime),
-                
                 revTime: formatDuration(revTime),
             };
-            
         });
 
         const openMergeRequests = data.filter(mr => mr.state === 'opened');

@@ -3,7 +3,6 @@ import { invoke } from "@forge/bridge";
 import "./App.css";
 import { Tooltip } from '@forge/react';
 
-
 const formatDate = (dateString) => {
   const options = {
     weekday: "long",
@@ -18,11 +17,11 @@ const formatDate = (dateString) => {
 function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [isPRModalOpen, setIsPRModalOpen] = useState(false); // State for PR Modal
-  const [prModalContent, setPrModalContent] = useState(""); // State for PR Modal content
-  const [tooltipContent, setTooltipContent] = useState(""); // State for tooltips
-  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 }); // Position for tooltips
-  const [tooltipVisible, setTooltipVisible] = useState(false); // Visibility of the tooltip
+  const [isPRModalOpen, setIsPRModalOpen] = useState(false);
+  const [prModalContent, setPrModalContent] = useState("");
+  const [tooltipContent, setTooltipContent] = useState("");
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   useEffect(() => {
     invoke("getDetails")
@@ -51,9 +50,7 @@ function App() {
   };
 
   const openPRModal = () => {
-    <strong >merge merge_request timeline</strong>
-    setPrModalContent(data.data.map(mr => (
-      
+    setPrModalContent(data.data.map(mr => (  
       <div className="time-item" key={mr.title}>
         <div className="time-age">{mr.age}</div>
         <div className="time-content">
@@ -89,7 +86,7 @@ function App() {
           <div className="timeline-item">
             <p>Open MR: {data.numberOfOpenMergeRequests}</p>
             <div
-              className ="timeline-circle" onClick={openPRModal} 
+              className="timeline-circle" onClick={openPRModal} 
               data-dev-time="N/A"
               data-rev-time="N/A"
             >
@@ -103,7 +100,6 @@ function App() {
               className="timeline-circle"
               data-dev-time={data.data.length > 0 ? data.data[0].devTime : 'N/A'}
               data-rev-time={data.data.length > 0 ? data.data[data.data.length - 1].revTime : 'N/A'}
-               // Handle PR Modal open
             >
               {data.completedMergeRequestDates?.length > 0
                 ? formatDate(
@@ -131,9 +127,8 @@ function App() {
           </div>
           <div
             className="timeline-arrow arrow-pr"
-            onClick={openPRModal} // Handle PR Modal open
+            onClick={openPRModal}
           >
-            
           </div>
         </div>
       ) : (
@@ -141,22 +136,25 @@ function App() {
       )}
 
       {tooltipVisible && (
-        <div className="tooltip" style={{ top: tooltipPosition.top, left: tooltipPosition.left ,}}>
+        <div className="tooltip" style={{ top: tooltipPosition.top, left: tooltipPosition.left } }>
           {tooltipContent}
         </div>
       )}
 
       {isPRModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closePRModal}>
-              &times;
-            </span>
-            <div className="modal-body">
-              {prModalContent}
+        <>
+          <div className="backdrop" onClick={closePRModal}></div>
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={closePRModal}>
+                &times;
+              </span>
+              <div className="modal-body">
+                {prModalContent}
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

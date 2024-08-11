@@ -5,7 +5,7 @@ import { Tooltip } from '@forge/react';
 
 const formatDate = (dateString) => {
   const options = {
-    weekday: "long",
+    weekday: "short",
     year: "numeric",
     month: "long",
     day: "numeric",

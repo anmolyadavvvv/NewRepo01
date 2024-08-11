@@ -42,7 +42,7 @@ function App() {
   const showTooltip = (content, event) => {
     const { clientX: left, clientY: top } = event;
     setTooltipContent(content);
-    setTooltipPosition({ top: top + 20, left: left + 10 });
+    setTooltipPosition({ top: top + 50, left: left - 20 });
     setTooltipVisible(true);
   };
 
@@ -51,7 +51,9 @@ function App() {
   };
 
   const openPRModal = () => {
+    <strong >merge merge_request timeline</strong>
     setPrModalContent(data.data.map(mr => (
+      
       <div className="time-item" key={mr.title}>
         <div className="time-age">{mr.age}</div>
         <div className="time-content">
@@ -78,16 +80,16 @@ function App() {
       {data ? (
         <div className="timeline">
           <div className="timeline-item">
-            <h3>1st commit</h3>
+            <p>1st commit</p>
             <div className="timeline-circle">
               {formatDate(data.firstCommitDate)}
             </div>
             <div className="timeline-content"></div>
           </div>
           <div className="timeline-item">
-            <h3>Open MR: {data.numberOfOpenMergeRequests}</h3>
+            <p>Open MR: {data.numberOfOpenMergeRequests}</p>
             <div
-              className="timeline-circle"
+              className ="timeline-circle" onClick={openPRModal} 
               data-dev-time="N/A"
               data-rev-time="N/A"
             >
@@ -96,7 +98,7 @@ function App() {
             <div className="timeline-content"></div>
           </div>
           <div className="timeline-item">
-            <h3>PR Merge</h3>
+            <p>PR Merge</p>
             <div
               className="timeline-circle"
               data-dev-time={data.data.length > 0 ? data.data[0].devTime : 'N/A'}
@@ -113,13 +115,13 @@ function App() {
             </div>
             <div className="timeline-content"></div>
           </div>
-          <div
-            className="timeline-arrow arrow-1"
+          <div className="timeline-arrow arrow-1"
             onMouseEnter={(e) => showTooltip(data.devTime, e)}
             onMouseLeave={hideTooltip}
           >
             devTime
           </div>
+          
           <div
             className="timeline-arrow arrow-2"
             onMouseEnter={(e) => showTooltip(data.revTime, e)}
@@ -139,7 +141,7 @@ function App() {
       )}
 
       {tooltipVisible && (
-        <div className="tooltip" style={{ top: tooltipPosition.top, left: tooltipPosition.left }}>
+        <div className="tooltip" style={{ top: tooltipPosition.top, left: tooltipPosition.left ,}}>
           {tooltipContent}
         </div>
       )}

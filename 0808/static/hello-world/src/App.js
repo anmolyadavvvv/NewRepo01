@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { invoke } from "@forge/bridge";
 import "./App.css";
-import { Tooltip } from '@forge/react';
 
 const formatDate = (dateString) => {
   const options = {
     weekday: "short",
-    year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   };
   const date = new Date(dateString);
@@ -20,7 +18,6 @@ function App() {
   const [isPRModalOpen, setIsPRModalOpen] = useState(false);
   const [prModalContent, setPrModalContent] = useState("");
   const [tooltipContent, setTooltipContent] = useState("");
-  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
   useEffect(() => {
@@ -38,10 +35,8 @@ function App() {
       });
   }, []);
 
-  const showTooltip = (content, event) => {
-    const { clientX: left, clientY: top } = event;
-    setTooltipContent(content);
-    setTooltipPosition({ top: top + 50, left: left - 20 });
+  const showTooltip  = (content) => {
+    setTooltipContent(content );
     setTooltipVisible(true);
   };
 
@@ -50,16 +45,18 @@ function App() {
   };
 
   const openPRModal = () => {
-    setPrModalContent(data.data.map(mr => (  
-      <div className="time-item" key={mr.title}>
-        <div className="time-age">{mr.age}</div>
-        <div className="time-content">
-          <div className="time-header">{mr.title}</div>
-          <div className="time-text">Assignees: {mr.assignees}</div>
-          <div className="time-text">Reviewers: {mr.reviewers}</div>
+    setPrModalContent(
+      data.data.map((mr) => (
+        <div className="time-item" key={mr.title}>
+          <div className="time-age">{mr.age}</div>
+          <div className="time-content">
+            <div className="time-header">{mr.title}</div>
+            <div className="time-text">Assignees: {mr.assignees}</div>
+            <div className="time-text">Reviewers: {mr.reviewers}</div>
+          </div>
         </div>
-      </div>
-    )));
+      ))
+    );
     setIsPRModalOpen(true);
   };
 
@@ -86,7 +83,8 @@ function App() {
           <div className="timeline-item">
             <p>Open MR: {data.numberOfOpenMergeRequests}</p>
             <div
-              className="timeline-circle" onClick={openPRModal} 
+              className="timeline-circle"
+              onClick={openPRModal}
               data-dev-time="N/A"
               data-rev-time="N/A"
             >
@@ -98,8 +96,14 @@ function App() {
             <p>PR Merge</p>
             <div
               className="timeline-circle"
-              data-dev-time={data.data.length > 0 ? data.data[0].devTime : 'N/A'}
-              data-rev-time={data.data.length > 0 ? data.data[data.data.length - 1].revTime : 'N/A'}
+              data-dev-time={
+                data.data.length > 0 ? data.data[0].devTime : "N/A"
+              }
+              data-rev-time={
+                data.data.length > 0
+                  ? data.data[data.data.length - 1].revTime
+                  : "N/A"
+              }
             >
               {data.completedMergeRequestDates?.length > 0
                 ? formatDate(
@@ -111,13 +115,14 @@ function App() {
             </div>
             <div className="timeline-content"></div>
           </div>
-          <div className="timeline-arrow arrow-1"
+          <div
+            className="timeline-arrow arrow-1"
             onMouseEnter={(e) => showTooltip(data.devTime, e)}
             onMouseLeave={hideTooltip}
           >
             devTime
           </div>
-          
+
           <div
             className="timeline-arrow arrow-2"
             onMouseEnter={(e) => showTooltip(data.revTime, e)}
@@ -125,21 +130,12 @@ function App() {
           >
             revTime
           </div>
-          <div
-            className="timeline-arrow arrow-pr"
-            onClick={openPRModal}
-          >
-          </div>
+          <div className="timeline-arrow arrow-pr" onClick={openPRModal}></div>
         </div>
       ) : (
         <p>Loading...</p>
       )}
-
-      {tooltipVisible && (
-        <div className="tooltip" style={{ top: tooltipPosition.top, left: tooltipPosition.left } }>
-          {tooltipContent}
-        </div>
-      )}
+      {tooltipVisible && <div className="tooltips">{tooltipContent}</div>}
 
       {isPRModalOpen && (
         <>
@@ -149,9 +145,7 @@ function App() {
               <span className="close" onClick={closePRModal}>
                 &times;
               </span>
-              <div className="modal-body">
-                {prModalContent}
-              </div>
+              <div className="modal-body">{prModalContent}</div>
             </div>
           </div>
         </>

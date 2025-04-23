@@ -75,3 +75,26 @@ function formatDuration(ms) {
 }
 
 export const handler = resolver.getDefinitions();
+
+
+ try {
+        const response = await api.fetch("https://gitlab.com/api/v4/projects/59538669/merge_requests");
+        const data = await response.json();
+
+        const firstCommitDate = await getFirstCommitDate();
+
+        const detailedData = data.map(mr => {
+            const createdDate = new Date(mr.created_at);
+            const now = new Date();
+
+ try {
+        const response = await api.fetch("https://gitlab.com/api/v4/projects/59538669/merge_requests");
+        const data = await response.json();
+
+        const firstCommitDate = await getFirstCommitDate();
+
+        const detailedData = data.map(mr => {
+            const createdDate = new Date(mr.created_at);
+            const now = new Date();
+
+

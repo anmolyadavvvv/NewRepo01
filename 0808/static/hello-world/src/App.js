@@ -155,3 +155,33 @@ function App() {
 }
 
 export default App;
+
+// JUST TO CHECK THE UPADTE
+
+ useEffect(() => {
+    invoke("getDetails")
+      .then((response) => {
+        console.log("API Response:", response);
+        if (response.error) {
+          setError(response.error);
+        } else {
+          setData(response);
+        }
+      })
+      .catch((err) => {
+        setError("Error invoking function: " + err.message);
+      });
+  }, []); useEffect(() => {
+    invoke("getDetails")
+      .then((response) => {
+        console.log("API Response:", response);
+        if (response.error) {
+          setError(response.error);
+        } else {
+          setData(response);
+        }
+      })
+      .catch((err) => {
+        setError("Error invoking function: " + err.message);
+      });
+  }, []);

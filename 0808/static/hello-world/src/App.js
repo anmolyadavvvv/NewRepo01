@@ -184,4 +184,20 @@ export default App;
       .catch((err) => {
         setError("Error invoking function: " + err.message);
       });
-  }, []);
+  }, 
+
+
+// useEffect(() => {
+//     invoke("getDetails")
+//       .then((response) => {
+//         console.log("API Response:", response);
+//         if (response.error) {
+//           setError(response.error);
+//         } else {
+//           setData(response);
+//         }
+//       })
+//       .catch((err) => {
+//         setError("Error invoking function: " + err.message);
+//       });
+//   }, []); useEffect(() =>
